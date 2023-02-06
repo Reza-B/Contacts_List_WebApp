@@ -1,0 +1,39 @@
+﻿@model List<Contacts_list.Models.PersonViewModel>
+@{
+    ViewBag.Title = "Contacts list";
+}
+
+<h2>Contacts</h2>
+<table class="table table-condensed table-striped table-hover">
+    <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>PhoneNumber</th>
+        <th>Email</th>
+        <th>Website</th>
+        <th>Commands</th>
+
+    </tr>
+    @{
+        int counter = 0;
+        foreach (var item in Model)
+        {
+            counter++;
+            <tr>
+                <td>@counter</td>
+                <td>@item.Name</td>
+                <td>@item.PhoneNumber</td>
+                <td>@item.Email</td>
+                <td><a href="@item.WebSite">@item.WebSite</a></td>
+                <td>
+                    <div class="btn-group-sm">
+                        <a class="btn btn-info" href="~/Home/ContactDetails/@item.ID">Details</a>
+                        <a class="btn btn-warning" href="~/Home/EditContact/@item.ID">Edit</a>
+                        <a class="btn btn-danger" href="~/Home/DeleteContact/@item.ID">Delete</a>
+                    </div>
+                </td>
+            </tr>
+        }
+    }
+</table>
+<a class="btn btn-success" href="~/Home/AddContact">Add new Contact</a>

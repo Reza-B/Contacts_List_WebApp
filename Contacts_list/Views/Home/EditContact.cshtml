@@ -1,0 +1,39 @@
+﻿@model Contacts_list.Models.PersonViewModel
+@{
+    ViewBag.Title = "Edit Contact";
+}
+
+
+<h2>Edit Contact in list</h2>
+
+<form action="~/Home/EditContact" method="post">
+
+    <input type="hidden" name="ID" value="@Model.ID" />
+    <dl>
+        <dt> Name : </dt>
+        <dd><input type="text" name="Name" required value="@Model.Name" /></dd>
+    </dl>
+    <dl>
+        <dt> Phone Number : </dt>
+        <dd><input type="tel" name="PhoneNumber" required value="@Model.PhoneNumber" /></dd>
+    </dl>
+    <dl>
+        <dt> Email : </dt>
+        <dd><input type="email" name="Email" value="@Model.Email" /></dd>
+    </dl>
+    <dl>
+        <dt> Website : </dt>
+        <dd><input type="url" name="WebSite" value="@Model.WebSite" /></dd>
+    </dl>
+    <dl>
+        <dt> Smart Phone Brand : </dt>
+        <dd><input type="text" name="SmartPhoneName" value="@Model.SmartPhoneName"/></dd>
+    </dl>
+    <dl>
+        <dt> Smart Phone Model : </dt>
+        <dd><input type="text" name="SmartPhoneModel" value="@Model.SmartPhoneModel"/></dd>
+    </dl>
+
+    <input type="submit" class="btn btn-warning" value="Edit" />
+</form>
+

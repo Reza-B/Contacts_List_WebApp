@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Contact_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Contacts">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="WebSite" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="SmartPhone" Relationship="Contact_DBModel.FK_SmartPhone_Contacts" FromRole="Contacts" ToRole="SmartPhone" />
+  </EntityType>
+  <EntityContainer Name="Contact_DBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Contacts" EntityType="Self.Contacts" />
+    <EntitySet Name="SmartPhone" EntityType="Contact_DBModel.SmartPhone" />
+    <AssociationSet Name="FK_SmartPhone_Contacts" Association="Contact_DBModel.FK_SmartPhone_Contacts">
+      <End Role="Contacts" EntitySet="Contacts" />
+      <End Role="SmartPhone" EntitySet="SmartPhone" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="SmartPhone">
+    <Key>
+      <PropertyRef Name="PersonID" />
+    </Key>
+    <Property Name="PersonID" Type="Int32" Nullable="false" />
+    <Property Name="SmartPhoneName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SmartPhoneModel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Contacts" Relationship="Contact_DBModel.FK_SmartPhone_Contacts" FromRole="SmartPhone" ToRole="Contacts" />
+  </EntityType>
+  <Association Name="FK_SmartPhone_Contacts">
+    <End Type="Contact_DBModel.Contacts" Role="Contacts" Multiplicity="1" />
+    <End Type="Contact_DBModel.SmartPhone" Role="SmartPhone" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Contacts">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="SmartPhone">
+        <PropertyRef Name="PersonID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

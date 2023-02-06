@@ -1,0 +1,16 @@
+﻿@model Contacts_list.Models.PersonViewModel
+@{
+    ViewBag.Title = "ContactDetail";
+}
+
+<h2>ContactDetail</h2>
+<div>
+    <ul>
+        <li>@Model.Name</li>
+        <li>@Model.PhoneNumber</li>
+        <li>@Model.Email</li>
+        <li><a href=">@Model.WebSite">@Model.WebSite</a></li>
+        <li>@Model.SmartPhoneName @Model.SmartPhoneModel</li>
+    </ul>
+</div>
+

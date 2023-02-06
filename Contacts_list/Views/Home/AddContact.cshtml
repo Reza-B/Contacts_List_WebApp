@@ -1,0 +1,37 @@
+﻿@model Contacts_list.Models.PersonViewModel
+@{
+    ViewBag.Title = "Add New Contact";
+}
+
+<h2>Add new contact to list</h2>
+
+<form action="~/Home/AddContact" method="post">
+    <input type="hidden" name="ID" />
+    <dl>
+        <dt> Name : </dt>
+        <dd><input type="text" name="Name" required /></dd>
+    </dl>
+    <dl>
+        <dt> Phone Number : </dt>
+        <dd><input type="tel" name="PhoneNumber" required /></dd>
+    </dl>
+    <dl>
+        <dt> Email : </dt>
+        <dd><input type="email" name="Email" /></dd>
+    </dl>
+    <dl>
+        <dt> Website : </dt>
+        <dd><input type="url" name="WebSite" /></dd>
+    </dl>
+    <dl>
+        <dt> Smart Phone Brand : </dt>
+        <dd><input type="text" name="SmartPhoneName" /></dd>
+    </dl>
+    <dl>
+        <dt> Smart Phone Model : </dt>
+        <dd><input type="text" name="SmartPhoneModel" /></dd>
+    </dl>
+
+    <input type="submit" class="btn btn-success" value="Add" />
+
+</form>

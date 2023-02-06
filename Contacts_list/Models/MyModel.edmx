@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Contact_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Contacts">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="250" />
+          <Property Name="WebSite" Type="varchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="SmartPhone">
+          <Key>
+            <PropertyRef Name="PersonID" />
+          </Key>
+          <Property Name="PersonID" Type="int" Nullable="false" />
+          <Property Name="SmartPhoneName" Type="nvarchar" MaxLength="50" />
+          <Property Name="SmartPhoneModel" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_SmartPhone_Contacts">
+          <End Role="Contacts" Type="Self.Contacts" Multiplicity="1" />
+          <End Role="SmartPhone" Type="Self.SmartPhone" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Contacts">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SmartPhone">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Contact_DBModelStoreContainer">
+          <EntitySet Name="Contacts" EntityType="Self.Contacts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SmartPhone" EntityType="Self.SmartPhone" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_SmartPhone_Contacts" Association="Self.FK_SmartPhone_Contacts">
+            <End Role="Contacts" EntitySet="Contacts" />
+            <End Role="SmartPhone" EntitySet="SmartPhone" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Contact_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Contacts">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="WebSite" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SmartPhone" Relationship="Contact_DBModel.FK_SmartPhone_Contacts" FromRole="Contacts" ToRole="SmartPhone" />
+        </EntityType>
+        <EntityContainer Name="Contact_DBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Contacts" EntityType="Self.Contacts" />
+          <EntitySet Name="SmartPhone" EntityType="Contact_DBModel.SmartPhone" />
+          <AssociationSet Name="FK_SmartPhone_Contacts" Association="Contact_DBModel.FK_SmartPhone_Contacts">
+            <End Role="Contacts" EntitySet="Contacts" />
+            <End Role="SmartPhone" EntitySet="SmartPhone" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="SmartPhone">
+          <Key>
+            <PropertyRef Name="PersonID" />
+          </Key>
+          <Property Name="PersonID" Type="Int32" Nullable="false" />
+          <Property Name="SmartPhoneName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SmartPhoneModel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Contacts" Relationship="Contact_DBModel.FK_SmartPhone_Contacts" FromRole="SmartPhone" ToRole="Contacts" />
+        </EntityType>
+        <Association Name="FK_SmartPhone_Contacts">
+          <End Type="Contact_DBModel.Contacts" Role="Contacts" Multiplicity="1" />
+          <End Type="Contact_DBModel.SmartPhone" Role="SmartPhone" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Contacts">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SmartPhone">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Contact_DBModelStoreContainer" CdmEntityContainer="Contact_DBEntities">
+          <EntitySetMapping Name="Contacts">
+            <EntityTypeMapping TypeName="Contact_DBModel.Contacts">
+              <MappingFragment StoreEntitySet="Contacts">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="WebSite" ColumnName="WebSite" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SmartPhone">
+            <EntityTypeMapping TypeName="Contact_DBModel.SmartPhone">
+              <MappingFragment StoreEntitySet="SmartPhone">
+                <ScalarProperty Name="SmartPhoneModel" ColumnName="SmartPhoneModel" />
+                <ScalarProperty Name="SmartPhoneName" ColumnName="SmartPhoneName" />
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
